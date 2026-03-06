@@ -9,7 +9,7 @@ from src.snake import Snake
 
 
 STARTING_GAME_SPEED = 0.09
-DELAY_DECELERATION_RATE = 0.00035
+DELAY_DECELERATION_RATE = 0.0003
 SNAKE_GROWTH = 3
 
 
@@ -63,7 +63,7 @@ def run():
         score.display()
         snake.move()
 
-        if snake.head.distance(food) < 15:
+        if snake.snake_segments[0].distance(food) < 15:
             for _ in range(SNAKE_GROWTH):
                 snake.new_segments()
             score.increase_score()
@@ -71,12 +71,12 @@ def run():
         
         # tail collision
         for s in snake.snake_segments[1:]:
-            if snake.head.distance(s) < 10:
+            if snake.snake_segments[0].distance(s) < 10:
                 trigger_game_over()
                 game_is_on = False
 
         # wall collision
-        if snake.head.xcor() > 290 or snake.head.xcor() < -290 or snake.head.ycor() > 290 or snake.head.ycor() < -290:
+        if snake.snake_segments[0].xcor() > 290 or snake.snake_segments[0].xcor() < -290 or snake.snake_segments[0].ycor() > 290 or snake.snake_segments[0].ycor() < -290:
             trigger_game_over()
             game_is_on = False
         
